@@ -10,7 +10,7 @@ namespace _163lyric
     {
         public string getContent(string sURL) {
 
-            string sContent = "";
+            string sContent = ""; //Content
             string sLine = "";
 
             try
