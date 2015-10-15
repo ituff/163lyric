@@ -21,6 +21,7 @@ namespace _163lyric
             try
             {
                 Lyrictb.Text = lyric.getLyric(Convert.ToInt32(IDtb.Text.Trim()));
+                Clipboard.SetDataObject(Lyrictb.Text);
             }
             catch {
                 MessageBox.Show("请输入数字！");
@@ -30,6 +31,11 @@ namespace _163lyric
         private void IDtb_KeyPress(object sender, KeyPressEventArgs e)
         {
 
+        }
+
+        private void Copybtn_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(Lyrictb.Text);
         }
     }
 }
