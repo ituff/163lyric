@@ -17,15 +17,23 @@ namespace _163lyric
 
         private void Getbtn_Click(object sender, EventArgs e)
         {
-            NetEaseLyric lyric = new NetEaseLyric();
-            try
+            int iID;
+            if (!int.TryParse(IDtb.Text.Trim(), out iID))
             {
-                Lyrictb.Text = lyric.getLyric(Convert.ToInt32(IDtb.Text.Trim()));
-                Clipboard.SetDataObject(Lyrictb.Text);
-            }
-            catch {
                 MessageBox.Show("请输入数字！");
+                return;
             }
+
+            NetEaseLyric lyric = new NetEaseLyric();
+            LyricResult result = lyric.getLyric(iID);
+            if (result.HasError)
+            {
+                MessageBox.Show(result.Error);
+                return;
+            }
+
+            Lyrictb.Text = result.ToString();
+            Clipboard.SetDataObject(Lyrictb.Text);
         }
 
         private void IDtb_KeyPress(object sender, KeyPressEventArgs e)

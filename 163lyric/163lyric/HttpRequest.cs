@@ -10,26 +10,22 @@ namespace _163lyric
     {
         public string getContent(string sURL) {
 
-            string sContent = ""; //Content
-            string sLine = "";
+            string sContent; //Content
 
             try
             {
                 WebRequest wrGETURL = WebRequest.Create(sURL);
-                Stream objStream = wrGETURL.GetResponse().GetResponseStream();
-                StreamReader objReader = new StreamReader(objStream);
-                while (sLine != null)
+                using (Stream objStream = wrGETURL.GetResponse().GetResponseStream())
+                using (StreamReader objReader = new StreamReader(objStream))
                 {
-                    sLine = objReader.ReadLine();
-                    if (sLine != null)
-                        sContent += sLine;
+                    sContent = objReader.ReadToEnd();
                 }
             }
 
             catch (Exception e) {
                 sContent = "ERR!"+e.ToString();
             }
-                     
+
             return sContent;
         }
     }
