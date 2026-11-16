@@ -31,6 +31,15 @@
             this.MainTabs = new System.Windows.Forms.TabControl();
             this.pageSearch = new System.Windows.Forms.TabPage();
             this.pageScan = new System.Windows.Forms.TabPage();
+            this.pageAbout = new System.Windows.Forms.TabPage();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.lblName = new System.Windows.Forms.Label();
+            this.lblDesc = new System.Windows.Forms.Label();
+            this.lnkGithub = new System.Windows.Forms.LinkLabel();
+            this.lblGzh = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.pbQr = new System.Windows.Forms.PictureBox();
             this.SrcLable = new System.Windows.Forms.Label();
             this.SrcNetease = new System.Windows.Forms.RadioButton();
             this.SrcKugou = new System.Windows.Forms.RadioButton();
@@ -47,7 +56,6 @@
             this.Save2btn = new System.Windows.Forms.Button();
             this.Copy2btn = new System.Windows.Forms.Button();
             this.SearchLyrictb = new System.Windows.Forms.TextBox();
-            this.btnAbout = new System.Windows.Forms.Button();
             this.DirLable = new System.Windows.Forms.Label();
             this.Dirtb = new System.Windows.Forms.TextBox();
             this.Browsebtn = new System.Windows.Forms.Button();
@@ -63,6 +71,7 @@
             this.MainTabs.SuspendLayout();
             this.pageSearch.SuspendLayout();
             this.pageScan.SuspendLayout();
+            this.pageAbout.SuspendLayout();
             this.SuspendLayout();
             //
             // MainTabs
@@ -72,6 +81,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainTabs.Controls.Add(this.pageSearch);
             this.MainTabs.Controls.Add(this.pageScan);
+            this.MainTabs.Controls.Add(this.pageAbout);
             this.MainTabs.Location = new System.Drawing.Point(6, 6);
             this.MainTabs.Name = "MainTabs";
             this.MainTabs.SelectedIndex = 0;
@@ -92,7 +102,6 @@
             this.pageSearch.Controls.Add(this.Save2btn);
             this.pageSearch.Controls.Add(this.Copy2btn);
             this.pageSearch.Controls.Add(this.SearchLyrictb);
-            this.pageSearch.Controls.Add(this.btnAbout);
             this.pageSearch.Location = new System.Drawing.Point(4, 22);
             this.pageSearch.Name = "pageSearch";
             this.pageSearch.Padding = new System.Windows.Forms.Padding(3);
@@ -256,16 +265,104 @@
             this.SearchLyrictb.Size = new System.Drawing.Size(640, 214);
             this.SearchLyrictb.TabIndex = 11;
             //
-            // btnAbout
+            // pageAbout
             //
-            this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAbout.Location = new System.Drawing.Point(578, 12);
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(74, 23);
-            this.btnAbout.TabIndex = 12;
-            this.btnAbout.Text = "关于";
-            this.btnAbout.UseVisualStyleBackColor = true;
-            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            this.pageAbout.Controls.Add(this.pbLogo);
+            this.pageAbout.Controls.Add(this.lblName);
+            this.pageAbout.Controls.Add(this.lblDesc);
+            this.pageAbout.Controls.Add(this.lnkGithub);
+            this.pageAbout.Controls.Add(this.lblGzh);
+            this.pageAbout.Controls.Add(this.btnUpdate);
+            this.pageAbout.Controls.Add(this.lblStatus);
+            this.pageAbout.Controls.Add(this.pbQr);
+            this.pageAbout.Location = new System.Drawing.Point(4, 22);
+            this.pageAbout.Name = "pageAbout";
+            this.pageAbout.Padding = new System.Windows.Forms.Padding(3);
+            this.pageAbout.Size = new System.Drawing.Size(664, 494);
+            this.pageAbout.TabIndex = 2;
+            this.pageAbout.Text = "关于";
+            this.pageAbout.UseVisualStyleBackColor = true;
+            //
+            // pbLogo
+            //
+            this.pbLogo.Location = new System.Drawing.Point(24, 28);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(32, 32);
+            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbLogo.TabIndex = 0;
+            this.pbLogo.TabStop = false;
+            //
+            // lblName
+            //
+            this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblName.Location = new System.Drawing.Point(68, 32);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(130, 19);
+            this.lblName.TabIndex = 1;
+            this.lblName.Text = "OneLyric";
+            //
+            // lblDesc
+            //
+            this.lblDesc.AutoSize = true;
+            this.lblDesc.ForeColor = System.Drawing.Color.DimGray;
+            this.lblDesc.Location = new System.Drawing.Point(68, 62);
+            this.lblDesc.Name = "lblDesc";
+            this.lblDesc.Size = new System.Drawing.Size(132, 12);
+            this.lblDesc.TabIndex = 2;
+            this.lblDesc.Text = "网易云音乐歌词下载器";
+            //
+            // lnkGithub
+            //
+            this.lnkGithub.AutoSize = true;
+            this.lnkGithub.LinkArea = new System.Windows.Forms.LinkArea(7, 28);
+            this.lnkGithub.Location = new System.Drawing.Point(24, 104);
+            this.lnkGithub.Name = "lnkGithub";
+            this.lnkGithub.Size = new System.Drawing.Size(233, 17);
+            this.lnkGithub.TabIndex = 3;
+            this.lnkGithub.TabStop = true;
+            this.lnkGithub.Text = "GitHub：https://github.com/ituff/163lyric";
+            this.lnkGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkGithub_LinkClicked);
+            //
+            // lblGzh
+            //
+            this.lblGzh.AutoSize = true;
+            this.lblGzh.Location = new System.Drawing.Point(24, 136);
+            this.lblGzh.Name = "lblGzh";
+            this.lblGzh.Size = new System.Drawing.Size(191, 12);
+            this.lblGzh.TabIndex = 4;
+            this.lblGzh.Text = "微信公众号：ONE生产力（扫码关注）";
+            //
+            // btnUpdate
+            //
+            this.btnUpdate.Location = new System.Drawing.Point(24, 172);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(110, 28);
+            this.btnUpdate.TabIndex = 5;
+            this.btnUpdate.Text = "检查更新";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            //
+            // lblStatus
+            //
+            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStatus.ForeColor = System.Drawing.Color.DimGray;
+            this.lblStatus.Location = new System.Drawing.Point(24, 216);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(524, 20);
+            this.lblStatus.TabIndex = 6;
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            //
+            // pbQr
+            //
+            this.pbQr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbQr.Location = new System.Drawing.Point(462, 28);
+            this.pbQr.Name = "pbQr";
+            this.pbQr.Size = new System.Drawing.Size(180, 180);
+            this.pbQr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbQr.TabIndex = 7;
+            this.pbQr.TabStop = false;
             //
             // pageScan
             //
@@ -434,6 +531,8 @@
             this.pageSearch.PerformLayout();
             this.pageScan.ResumeLayout(false);
             this.pageScan.PerformLayout();
+            this.pageAbout.ResumeLayout(false);
+            this.pageAbout.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -459,7 +558,15 @@
         private System.Windows.Forms.Button Save2btn;
         private System.Windows.Forms.Button Copy2btn;
         private System.Windows.Forms.TextBox SearchLyrictb;
-        private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.TabPage pageAbout;
+        private System.Windows.Forms.PictureBox pbLogo;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblDesc;
+        private System.Windows.Forms.LinkLabel lnkGithub;
+        private System.Windows.Forms.Label lblGzh;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.PictureBox pbQr;
         private System.Windows.Forms.Label DirLable;
         private System.Windows.Forms.TextBox Dirtb;
         private System.Windows.Forms.Button Browsebtn;

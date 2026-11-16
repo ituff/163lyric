@@ -116,24 +116,17 @@ $bmp.Save((Join-Path $assets 'screenshot-scan.png'), [System.Drawing.Imaging.Ima
 $bmp.Dispose()
 Write-Host 'shot 2 (scan) ok'
 
-$form.Close(); $form.Dispose()
-
-# ============ 截图3：关于窗口（补上真实图标） ============
-$about = $asm.CreateInstance('_163lyric.AboutForm')
-$about.Icon = New-Object System.Drawing.Icon($icoPath)
-$pbLogo = $asm.GetType('_163lyric.AboutForm').GetField('pbLogo', $BF).GetValue($about)
-$ms = New-Object System.IO.MemoryStream (, [IO.File]::ReadAllBytes('D:\Project\163lyrics\assets\logo-256.png'))
-$pbLogo.Image = [System.Drawing.Image]::FromStream($ms)
-$about.StartPosition = 'Manual'
-$about.Show()
+# ============ 截图3：关于标签页（Form1 第三个 tab） ============
+$tabs.SelectedIndex = 2
 [System.Windows.Forms.Application]::DoEvents()
 Start-Sleep -Milliseconds 500
-$bmp = New-Object System.Drawing.Bitmap($about.Width, $about.Height)
-$about.DrawToBitmap($bmp, (New-Object System.Drawing.Rectangle(0, 0, $about.Width, $about.Height)))
+$bmp = New-Object System.Drawing.Bitmap($form.Width, $form.Height)
+$form.DrawToBitmap($bmp, (New-Object System.Drawing.Rectangle(0, 0, $form.Width, $form.Height)))
 $bmp.Save((Join-Path $assets 'screenshot-about.png'), [System.Drawing.Imaging.ImageFormat]::Png)
 $bmp.Dispose()
-$about.Close(); $about.Dispose()
-Write-Host 'shot 3 (about) ok'
+Write-Host 'shot 3 (about tab) ok'
+
+$form.Close(); $form.Dispose()
 
 Remove-Item -Recurse -Force $sampleDir
 Write-Host '=== screenshots done ==='

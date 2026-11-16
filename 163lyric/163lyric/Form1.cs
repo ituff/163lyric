@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +23,32 @@ namespace _163lyric
                 Icon = System.Drawing.Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             }
             catch { }
+
+            // 关于页：版本号与嵌入的图片资源（logo、公众号二维码）
+            lblName.Text = "OneLyric v" + Updater.CurrentVersion;
+            pbLogo.Image = LoadResourceImage("_163lyric.logo-256.png");
+            pbQr.Image = LoadResourceImage("_163lyric.wechat-qrcode.png");
+        }
+
+        /// <summary>从 exe 嵌入资源加载图片（复制进内存流，避免依赖已释放的资源流）。</summary>
+        private static Image LoadResourceImage(string sName)
+        {
+            try
+            {
+                using (Stream rs = typeof(Form1).Assembly.GetManifestResourceStream(sName))
+                {
+                    if (rs == null)
+                        return null;
+                    MemoryStream ms = new MemoryStream();
+                    rs.CopyTo(ms);
+                    ms.Position = 0;
+                    return Image.FromStream(ms);
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ==================== 搜索歌词 ====================
@@ -338,10 +366,64 @@ namespace _163lyric
 
         // ==================== 关于 ====================
 
-        private void btnAbout_Click(object sender, EventArgs e)
+        private void lnkGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            using (AboutForm dlg = new AboutForm())
-                dlg.ShowDialog(this);
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo("https://github.com/ituff/163lyric");
+                psi.UseShellExecute = true;
+                Process.Start(psi);
+            }
+            catch { }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            btnUpdate.Enabled = false;
+            lblStatus.Text = "正在检查更新...";
+
+            Task.Run((Action)(() =>
+            {
+                try
+                {
+                    Updater.ReleaseInfo rel = Updater.GetLatestRelease();
+                    if (!Updater.IsNewer(rel.Tag))
+                    {
+                        SetStatus("已是最新版本（线上 " + rel.Tag + "）");
+                        EnableUpdateBtn();
+                        return;
+                    }
+
+                    SetStatus("发现新版本 " + rel.Tag + "，正在下载...");
+                    string sScript = Updater.DownloadAndPrepareUpdate(rel.ZipUrl);
+                    SetStatus("更新就绪，应用即将重启...");
+                    Thread.Sleep(600);   // 给状态文本留出渲染时间
+                    BeginInvoke((Action)(() => Updater.ApplyUpdate(sScript)));
+                }
+                catch (Exception ex)
+                {
+                    SetStatus("更新失败：" + Clamp(ex.Message));
+                    EnableUpdateBtn();
+                }
+            }));
+        }
+
+        private void SetStatus(string s)
+        {
+            BeginInvoke((Action)(() => lblStatus.Text = s));
+        }
+
+        private void EnableUpdateBtn()
+        {
+            BeginInvoke((Action)(() => btnUpdate.Enabled = true));
+        }
+
+        private static string Clamp(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return "";
+            s = s.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
+            return s.Length <= 38 ? s : s.Substring(0, 38) + "...";
         }
 
         // ==================== 小工具 ====================

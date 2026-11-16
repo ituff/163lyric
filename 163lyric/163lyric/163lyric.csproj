@@ -22,8 +22,9 @@
     <!-- 在线更新解压 zip 需要 -->
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
-    <!-- 公众号二维码嵌入 exe -->
+    <!-- 关于页图片：公众号二维码 + 应用 logo，均嵌入 exe -->
     <EmbeddedResource Include="wechat-qrcode.png" />
+    <EmbeddedResource Include="..\..\assets\logo-256.png" Link="logo-256.png" />
   </ItemGroup>
 
 </Project>

@@ -30,9 +30,9 @@ Write-Host ("  extracted files: " + ((Get-ChildItem $newDir | ForEach-Object { $
 Write-Host '--- update.cmd ---'
 Get-Content $scriptPath | ForEach-Object { Write-Host ("  | " + $_) }
 
-Write-Host '=== 5. AboutForm 实例化（含二维码加载） ==='
-$form = $asm.CreateInstance('_163lyric.AboutForm')
-Write-Host ("  AboutForm created: " + ($form -ne $null))
+Write-Host '=== 5. Form1 实例化（含关于页图片加载） ==='
+$form = $asm.CreateInstance('_163lyric.Form1')
+Write-Host ("  Form1 created: " + ($form -ne $null))
 $form.Dispose()
 
 # 清理测试产物
