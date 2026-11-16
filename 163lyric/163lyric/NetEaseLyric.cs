@@ -76,9 +76,9 @@ namespace _163lyric
     class NetEaseLyric
     {
         /// <summary>
-        /// 从网易云音乐接口获取歌词（含翻译歌词）。
+        /// 从网易云音乐接口获取歌词（含翻译歌词）。网易新歌 ID 超过 int 范围，须用 long。
         /// </summary>
-        public LyricResult getLyric(int iID)
+        public LyricResult getLyric(long iID)
         {
             LyricResult result = new LyricResult();
 
