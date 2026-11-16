@@ -24,8 +24,9 @@ namespace _163lyric
                 HttpWebRequest wrGETURL = (HttpWebRequest)WebRequest.Create(sURL);
                 wrGETURL.Timeout = 10000;
                 wrGETURL.ReadWriteTimeout = 10000;
-                // LRCLIB 要求客户端表明身份，统一带上 User-Agent
-                wrGETURL.UserAgent = "OneLyric/1.2 (https://github.com/ituff/163lyric)";
+                // LRCLIB 要求客户端表明身份，统一带上 User-Agent（版本动态取，发版不用改这里）
+                wrGETURL.UserAgent = "OneLyric/" + typeof(HttpRequest).Assembly.GetName().Version.ToString(3)
+                    + " (https://github.com/ituff/163lyric)";
                 wrGETURL.Accept = "*/*";
 
                 if (headers != null)
